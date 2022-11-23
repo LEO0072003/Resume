@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+<!-- {% load socialaccount %} -->
+{% block content %}
+
+
+{% if page == 'login' %}
+    <div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <label>Username:</label>
+            <input type="text" name="username" placeholder="Enter your username here">
+            <br>
+            <label>Password: </label>
+            <input type="password" name="password" placeholder="Enter your password here">
+            <br>
+            <input type="submit" value="Login">
+
+        </form>
+
+        <!-- <a href="{% provider_login_url 'google' %}">Login With Google</a> -->
+
+        <h5>Haven't signed up yet??</h5>
+        <a href="{% url 'register' %}">Register</a>
+    </div>
+{% elif page == 'register' %}
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Register">
+        </form>
+    </div>
+{% endif %}
+
+{% endblock %}
