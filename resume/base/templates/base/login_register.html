@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
-<!-- {% load socialaccount %} -->
+{% load socialaccount %}
+{% providers_media_js %}
 {% block content %}
 
 
@@ -19,7 +20,7 @@
 
         </form>
 
-        <!-- <a href="{% provider_login_url 'google' %}">Login With Google</a> -->
+        <a href="{% provider_login_url 'google' %}">Login With Google</a>
 
         <h5>Haven't signed up yet??</h5>
         <a href="{% url 'register' %}">Register</a>

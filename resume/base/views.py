@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User
+from django.views import View
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import MyUserCreationForm
 
 # Create your views here.
 
-def homePage(request):
-    return render(request, 'base/home.html')
+
+class Home(View):
+
+    def get(self,request,*args,**kwargs):
+        return render(request,'base/home.html')
 
 def loginPage(request):
 
@@ -55,3 +59,6 @@ def registerUser(request):
 
     context = {'page':page, 'form':form}
     return render(request, 'base/login_register.html', context)
+
+
+

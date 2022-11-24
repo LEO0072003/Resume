@@ -38,20 +38,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'base',
+    'django.contrib.sites',
 
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',
-    # 'django.contrib.sites',
+
+    'base',
+    'prof_details',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
 ]
 
 
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',
-#     'allauth.account.auth_backends.AuthenticationBackend'
-# ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     'google': {
@@ -65,10 +69,10 @@ INSTALLED_APPS = [
 #     }
 # }
 
-SITE_ID = 2
+SITE_ID = 1
 
-# LOGIN_REDIRECT_URL = '{% url "home" %}'
-# LOGOUT_REDIRECT_URL = '{% url "admin" %}'
+LOGIN_REDIRECT_URL = ''
+LOGOUT_REDIRECT_URL = '/admin/'
 
 
 MIDDLEWARE = [
@@ -151,7 +155,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
