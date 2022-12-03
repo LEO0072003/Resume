@@ -5,11 +5,14 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
 
+    USERNAME_FIELD='username'
+
     def __str__(self):
         if super().first_name:
             return super().get_full_name()
         else:
             return super().username
+
 
 
 class Milestones(models.Model):
@@ -19,7 +22,7 @@ class Milestones(models.Model):
     project_or_repository_link = models.URLField(null=True, blank=True)
     acknowledgement = models.ImageField(upload_to='acknowledment/', null=True, blank=True)
     project = models.ImageField(upload_to='project_images/', null=True, blank=True)
-    certifications = models.FileField(upload_to='certifications/' ,null=True, blank=True)
+    # certifications = models.FileField(upload_to='certifications/' ,null=True, blank=True)
 
 
     def __str__(self):

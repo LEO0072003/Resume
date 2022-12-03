@@ -1,6 +1,4 @@
 {% extends 'main.html' %}
-{% load socialaccount %}
-{% providers_media_js %}
 {% block content %}
 
 
@@ -16,21 +14,20 @@
             <label>Password: </label>
             <input type="password" name="password" placeholder="Enter your password here">
             <br>
-            <input type="submit" value="Login">
+            <input class="btn" type="submit" value="Login">
 
         </form>
 
-        <a href="{% provider_login_url 'google' %}">Login With Google</a>
 
         <h5>Haven't signed up yet??</h5>
-        <a href="{% url 'register' %}">Register</a>
+        <a class="btn" href="{% url 'register' %}">Register</a>
     </div>
 {% elif page == 'register' %}
     <div>
         <form action="" method="POST">
             {% csrf_token %}
             {{form.as_p}}
-            <input type="submit" value="Register">
+            <input class="btn" type="submit" value="Register">
         </form>
     </div>
 {% endif %}

@@ -1,17 +1,73 @@
-<center><a href="{% url 'home' %}"><h1 id="Navheader">RESUMEs</h1></a></center>
+<!-- <div class="navbar">
+    <div>
+        <center>
+        <a id="navheader"  href="{% url 'home' %}">
 
+            <button id="navheader">
 
+                        RESUMEs
 
-{% if request.user.is_authenticated %}
+            </button>
+            </a>
+        </center>
+    </div>
 
-<h6>Welcome {{user.username}} </h6>
     {% if request.user.is_authenticated %}
-    <a href="{% url 'logout' %}">Logout</a>
-    <a href="{% url 'profile' request.user.username %}">Profile</a>
+
+
+    <h6>Welcome {{request.user.username}} </h6>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">
+            <button>
+                Logout
+            </button>
+            </a>
+        <a href="{% url 'profile' request.user.username %}">
+            <button>
+                Profile
+            </button>
+        </a>
+        {% endif %}
+    {% else %}
+
+    <a href="{% url 'login' %}">
+        <button>
+            Login
+        </button>
+    </a>
     {% endif %}
-{% else %}
 
-<a href="{% url 'login' %}">Login</a>
-{% endif %}
+    <hr style="height: 10px; background-color:#fff;">
+</div> -->
 
-<hr>
+{% load static %}
+<script src="{% static '/js/menu.js' %}"></script>
+
+<nav id='menu'>
+    <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+    <ul>
+      <li><a href='{% url "home" %}'>Home</a></li>
+      {% if request.user.is_authenticated %}
+        <li><a class='dropdown-arrow' href="{% url 'profile' request.user.username %}">Profile</a>
+            <ul class='sub-menus'>
+            <li><a href="{% url 'profile' request.user.username %}">View your profile</a></li>
+            <li><a href="{% url 'edit_profile' %}?r=projects">Edit your profile</a></li>
+        </ul>
+      </li>
+      {% endif %}
+
+
+      <li><a href="">Contact Us</a></li>
+
+    <div class="login-logout" >
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+
+        {% endif %}
+    </div>
+    </ul>
+
+  </nav>

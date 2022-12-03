@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+        <h1>{{milestones.user}} </h1>
+        <h2>{{milestones.title}}</h2>
+        <p>{{milestones.description}}</p>
+        <br>
+        {{milestones.project_or_repository_link}}
+        <br>
+        {{milestones.acknowledgement}}
+        <br>
+        {{milestones.project}}
+        <br>
+        <!-- {% if milestones.certifications %}
+                <h6>Certification</h6>
+                <img src="{{milestones.certifications.url}} " width="120" alt="">
+        {% endif %} -->
+
+
+
+{% endblock %}

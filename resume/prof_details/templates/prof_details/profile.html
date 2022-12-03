@@ -2,8 +2,106 @@
 
 {% block content %}
 
-<div>
-    <img src="{{profile.avatar.url}}" width="120"/>
-</div>
+{% if page == 'edit' %}
+    <div class="profile-edit">
+        <div class="left">
+            <h1>Edit your Profile</h1>
+            <img src="{{profile.avatar.url}}" width="120"/>
+            <br>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="Save" class="btn">
+            </form>
+
+
+
+        </div>
+        <div class="right">
+            <ul>
+                <li><a href="?r=profile">Profile</a></li>
+                <li><a href="?r=certification">Certifications</a></li>
+                <li><a href="?r=academics">Academics</a></li>
+                <li><a href="?r=experience">Experience</a></li>
+                <li><a href="?r=projects">Projects</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+
+{% elif page == 'ViewProfile' %}
+    <div class="profilecontainer">
+        <div id="profile-left">
+            <div>
+                <h1>
+                    Education
+                </h1>
+                {% if academics %}
+                {% for p in academics %}
+                    {% if p is not None %}
+                        {{p}}
+                        <br>
+                    {% endif %}
+                    {{p.year_of_completion}}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+
+                <h1>Work Experience</h1>
+                <div class="work-block">
+                    {% if workexperience %}
+                        {% for w in workexperience %}
+                            <u><h3>{{w.organization_name}}</h3></u>
+                            <h4>{{w.designation}}</h4>
+                            <h6>{{w.year_joined}}-{{w.year_left}}</h6>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="profile">
+
+                <img id="profile-avatar" src="{{profile.avatar.url}}" width="120"/>
+
+
+            <div class="profile-data">
+                <h4 class="profile-data">{{profile.headline}}</h4>
+                <h4 class="profile-data">{{profile.user}}</h4>
+                <h4 class="profile-data">{{profile.age}}</h4>
+                <p class="profile-data">{{profile.bio}}</p>
+            </div>
+        </div>
+
+        <div id="profile-right">
+            <div>
+                <h1>Projects Worked</h1>
+                {% for m in milestones %}
+                    <a href="{% url 'milestone' m.id %}">
+                        <button>
+                            {{m}}
+                        </button>
+                        <br>
+                    </a>
+                {% endfor %}
+            </div>
+
+            <div>
+
+                {% if certifications %}
+                    <h1>Certifications</h1>
+                    {% for cer in certifications %}
+                        <h4>{{cer.title}}</h4>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endif %}
 
 {% endblock content %}

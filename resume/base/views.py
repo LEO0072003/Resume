@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User
+from prof_details.models import Profile, Certifications,Academics,WorkExperiences
 from django.views import View
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -18,12 +19,16 @@ def loginPage(request):
 
     page = 'login'
 
+    if request.user.is_authenticated:
+        return redirect('home')
+
     if request.method =='POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
 
         try:
             user = User.objects.get(username=username)
+
         except:
             messages.error(request,'Not a valid user')
 
@@ -50,7 +55,12 @@ def registerUser(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
+
             login(request, user)
+            profile = Profile.objects.create(user=user)
+            Academics.objects.create(profile=profile)
+            Certifications.objects.create(user=user)
+            WorkExperiences.objects.create(user=user)
 
             return redirect('home')
 
@@ -59,6 +69,5 @@ def registerUser(request):
 
     context = {'page':page, 'form':form}
     return render(request, 'base/login_register.html', context)
-
 
 
