@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 'django.contrib.sites',
+    'crispy_forms',
 
 
     'base',
@@ -171,3 +171,5 @@ MEDIA_URL = 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'base.User'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'

@@ -48,10 +48,10 @@
     <ul>
       <li><a href='{% url "home" %}'>Home</a></li>
       {% if request.user.is_authenticated %}
-        <li><a class='dropdown-arrow' href="{% url 'profile' request.user.username %}">Profile</a>
+        <li><a class='dropdown-arrow' href="">Profile</a>
             <ul class='sub-menus'>
             <li><a href="{% url 'profile' request.user.username %}">View your profile</a></li>
-            <li><a href="{% url 'edit_profile' %}?r=projects">Edit your profile</a></li>
+            <li><a href="{% url 'edit_profile' %}?r=profile">Edit your profile</a></li>
         </ul>
       </li>
       {% endif %}

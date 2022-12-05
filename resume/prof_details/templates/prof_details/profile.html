@@ -1,19 +1,21 @@
 {% extends 'main.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 {% if page == 'edit' %}
     <div class="profile-edit">
         <div class="left">
-            <h1>Edit your Profile</h1>
-            <img src="{{profile.avatar.url}}" width="120"/>
-            <br>
+            <div class="edit-form">
+                <h1>Edit your Profile</h1>
+                <img src="{{profile.avatar.url}}" width="120"/>
+                <br>
 
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{form.as_p}}
-                <input type="submit" value="Save" class="btn">
-            </form>
+                <form action="" method="POST" >
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <input type="submit" value="Save" class="btn">
+                </form>
+            </div>
 
 
 
@@ -105,3 +107,4 @@
 {% endif %}
 
 {% endblock content %}
+

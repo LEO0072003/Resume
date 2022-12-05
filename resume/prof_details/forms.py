@@ -7,8 +7,9 @@ from django.forms import HiddenInput
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
-        widgets  =  {'user': HiddenInput()}
+        exclude = ['avatar']
+        # fields = '__all__'
+        widgets  =  {'user': HiddenInput(), 'avatar':HiddenInput()}
 
 
 class WorkexperienceEditForm(forms.ModelForm):

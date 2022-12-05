@@ -212,3 +212,9 @@
 	display: block;
 }
 
+.profile-edit .left{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #111;
+}
