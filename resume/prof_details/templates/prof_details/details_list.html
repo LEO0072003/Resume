@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+        {% for obj in obj %}
+        <a href="{% url 'edit_spc_profile' obj.id %}?r={{r}}">{{obj}}</a>
+        <br>
+        {% endfor %}
+
+{% endblock %}

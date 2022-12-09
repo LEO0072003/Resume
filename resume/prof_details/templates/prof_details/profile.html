@@ -10,7 +10,7 @@
                 <img src="{{profile.avatar.url}}" width="120"/>
                 <br>
 
-                <form action="" method="POST" >
+                <form action="" method="POST" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{form|crispy}}
                     <input type="submit" value="Save" class="btn">
@@ -23,10 +23,10 @@
         <div class="right">
             <ul>
                 <li><a href="?r=profile">Profile</a></li>
-                <li><a href="?r=certification">Certifications</a></li>
-                <li><a href="?r=academics">Academics</a></li>
-                <li><a href="?r=experience">Experience</a></li>
-                <li><a href="?r=projects">Projects</a></li>
+                <li><a href="{% url 'detail'  %}?r=certification&d=details">Certifications</a></li>
+                <li><a href="{% url 'detail'  %}?r=academics&d=details">Academics</a></li>
+                <li><a href="{% url 'detail'  %}?r=experience&d=details">Experience</a></li>
+                <li><a href="{% url 'detail'  %}?r=projects&d=details">Projects</a></li>
 
             </ul>
         </div>
@@ -43,7 +43,7 @@
                 {% if academics %}
                 {% for p in academics %}
                     {% if p is not None %}
-                        {{p}}
+                        {{p.degree}}
                         <br>
                     {% endif %}
                     {{p.year_of_completion}}

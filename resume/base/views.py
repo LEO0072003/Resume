@@ -50,7 +50,8 @@ def registerUser(request):
 
     if request.method == 'POST':
         form = MyUserCreationForm(request.POST)
-
+        form.fields['first_name'].required = True
+        form.fields['last_name'].required = True
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()

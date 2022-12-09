@@ -1,3 +1,14 @@
+
+h1{
+	font-size: 25px;
+}
+h4{
+	font-size: 18px;
+}
+body{
+	margin: 10px;
+
+}
 .profile{
     display: block;
     margin-left: auto;
@@ -10,9 +21,7 @@
 	margin: 20px;
 
 }
-
 #profile-avatar{
-
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -212,9 +221,16 @@
 	display: block;
 }
 
-.profile-edit .left{
+.edit-form{
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #111;
+	width: 50%;
+	border: 1px solid #111;
+	padding: 10px;
+}
+.register-form{
+	margin-right: auto;
+	margin-left: 50px;
+	width: 50%;
 }
