@@ -1,10 +1,12 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
-        {% for obj in obj %}
-        <a href="{% url 'edit_spc_profile' obj.id %}?r={{r}}">{{obj}}</a>
-        <br>
-        {% endfor %}
+        <div>
+                {% for obj in obj %}
+                <a href="{% url 'edit_spc_profile' obj.id %}?r={{r}}">{{obj}}</a>
+                <br>
+                {% endfor %}
+                <a href="{% url 'add_details' %}?a=add&r={{r}}" class="btn">Add</a>
+        </div>
 
 {% endblock %}

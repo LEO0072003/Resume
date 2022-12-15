@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -14,22 +15,32 @@
                     {% csrf_token %}
                     {{form|crispy}}
                     <input type="submit" value="Save" class="btn">
+                    {% if request.GET.r != 'profile' %}
+                        {% if form.instance.id %}
+                            <a class="btn" href="{% url 'delete' form.instance.id %}?r={{r}}" style="background: red;">DELETE</a>
+                        {% elif form.id %}
+                            <a class="btn" href="{% url 'delete' form.id %}?r={{r}}" style="background: red;">DELETE</a>
+                        {% endif %}
+                    {% endif %}
                 </form>
             </div>
 
 
 
         </div>
-        <div class="right">
-            <ul>
-                <li><a href="?r=profile">Profile</a></li>
-                <li><a href="{% url 'detail'  %}?r=certification&d=details">Certifications</a></li>
-                <li><a href="{% url 'detail'  %}?r=academics&d=details">Academics</a></li>
-                <li><a href="{% url 'detail'  %}?r=experience&d=details">Experience</a></li>
-                <li><a href="{% url 'detail'  %}?r=projects&d=details">Projects</a></li>
 
-            </ul>
-        </div>
+
+            <div class="right">
+                <ul>
+                    <li><a href="?r=profile">Profile</a></li>
+                    <li><a href="{% url 'detail'  %}?r=certification&d=details">Certifications</a></li>
+                    <li><a href="{% url 'detail'  %}?r=academics&d=details">Academics</a></li>
+                    <li><a href="{% url 'detail'  %}?r=experience&d=details">Experience</a></li>
+                    <li><a href="{% url 'detail'  %}?r=projects&d=details">Projects</a></li>
+
+                </ul>
+            </div>
+
 
     </div>
 

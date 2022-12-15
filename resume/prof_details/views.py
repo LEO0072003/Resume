@@ -153,8 +153,7 @@ class ProfileEditDetails(View):
     page = 'edit'
     context = {'page': page}
 
-    def select_form(self, req_post=None, req_files=None, id=None):
-        # print(data)
+    def select_form(self, req_post=None, req_files=None, id=None, f=False):
         r = self.request.GET.get('r')
         profile = Profile.objects.get(user = self.request.user)
         self.context.update({'profile':profile, 'r':r})
@@ -166,38 +165,48 @@ class ProfileEditDetails(View):
 
         # Certification Form
         elif r == 'certification':
-            if id==None:
+            form = CertificationsEditForm(req_post, req_files, initial={'user':self.request.user})
+            if id==None and not f:
                 certifications = Certifications.objects.filter(user=self.request.user)
 
                 return certifications
-            else:
+            elif id:
                 certifications = Certifications.objects.get(id=id)
                 form = CertificationsEditForm(req_post, req_files ,instance=certifications)
                 return form
 
+            return form
+
         # Academics Form
         elif r == 'academics':
-            if id == None:
+            form = AcademicsEditForm(req_post, req_files, initial={'profile':profile})
+            if id == None and not f:
                 academics = Academics.objects.filter(profile=profile)
                 return academics
-            else:
+            elif id:
                 academics = Academics.objects.get(id=id)
                 form = AcademicsEditForm(req_post, req_files ,instance=academics)
                 return form
 
+            return form
+
         #Work Experience Form
         elif r == 'experience':
-            if id == None:
+            form = WorkexperienceEditForm(req_post, req_files,initial={'user':self.request.user})
+            if id == None and not f:
                 experience = WorkExperiences.objects.filter(user = self.request.user)
                 return experience
-            else:
+            elif id:
                 experience = WorkExperiences.objects.get(id=id)
                 form = WorkexperienceEditForm(req_post, req_files ,instance=experience)
                 return form
 
+            return form
+
         #Projects Form
         elif r == 'projects':
-            if id == None:
+            form = MilestonesEditForm(req_post, req_files,initial={'user':self.request.user})
+            if id == None and not f:
                 projects = Milestones.objects.filter(user = self.request.user)
                 return projects
             elif id:
@@ -205,21 +214,21 @@ class ProfileEditDetails(View):
                 form = MilestonesEditForm(req_post, req_files ,instance=projects)
                 return form
 
+            return form
 
 
     def get(self, request, *args, **kwargs):
-
-        if not self.request.GET.get('d'):
+        self.context.update({'r':self.request.GET.get('r')})
+        if not self.request.GET.get('d') and not self.request.GET.get('a'):
             """Edit pages rendered after detail_list pages"""
 
             if kwargs.get('pk'):
-                print("reached")
                 form = self.select_form(id= kwargs.get('pk'))
 
             else:
                 """Form rendered only for profile page"""
                 form = self.select_form()
-
+            # print("form-data: ",form.instance.id)
             self.context.update({'form':form})
 
             return render(request, 'prof_details/profile.html', self.context)
@@ -231,13 +240,28 @@ class ProfileEditDetails(View):
             self.context.update({'obj':obj})
             return render(request, 'prof_details/details_list.html', self.context)
 
+        elif self.request.GET.get('a'):
+            """Form rendered after user requests for add"""
+            form = self.select_form(f=True)
+            # print('add')
+
+            self.context.update({'form':form})
+            return render(request, 'prof_details/profile.html', self.context)
+
     def post(self, request, *args, **kwargs):
-        form = self.select_form(request.POST, request.FILES, kwargs.get('pk'))
-        # print("form-data:",form.data)
+        vals = kwargs.get('pk')
+        a = self.request.GET.get('a')
+
+        f = False
+        if a :
+            f = True
+        print(f)
+        form = self.select_form(request.POST, request.FILES, vals, f)
+
         if form.is_valid():
             form.save(commit=False)
 
-            print(form.cleaned_data)
+
             # if 'avatar' in form.cleaned_data:
             #     print(form.cleaned_data)
                 # if form.cleaned_data.get('avatar') is False:
@@ -250,3 +274,19 @@ class ProfileEditDetails(View):
             print('error: ',form.errors)
 
         return render(request, 'prof_details/profile.html')
+
+
+def deleteProfileDetail(request, pk):
+    r = request.GET.get('r')
+
+    if r == 'experience':
+        obj = WorkExperiences.objects.get(id=pk)
+    elif r == 'certification':
+        obj = Certifications.objects.get(id=pk)
+    elif r == 'academics':
+        obj = Academics.objects.get(id=pk)
+    elif r == 'projects':
+        obj = Milestones.objects.get(id=pk)
+
+    obj.delete()
+    return redirect('edit_profile')
