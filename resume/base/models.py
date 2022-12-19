@@ -25,7 +25,7 @@ class Milestones(models.Model):
     # certifications = models.FileField(upload_to='certifications/' ,null=True, blank=True)
 
 
-    def __str__(self):
-        return self.user.get_full_name() + ' '+  self.title
+    # def __str__(self):
+    #     return self.user.get_full_name() + ' '+  self.title
 
 

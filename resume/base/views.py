@@ -59,9 +59,9 @@ def registerUser(request):
 
             login(request, user)
             profile = Profile.objects.create(user=user)
-            Academics.objects.create(profile=profile)
-            Certifications.objects.create(user=user)
-            WorkExperiences.objects.create(user=user)
+            # Academics.objects.create(profile=profile)
+            # Certifications.objects.create(user=user)
+            # WorkExperiences.objects.create(user=user)
 
             return redirect('home')
 

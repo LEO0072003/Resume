@@ -1,4 +1,5 @@
 from django.forms import HiddenInput
+from resume.settings import MEDIA_ROOT
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
@@ -255,18 +256,18 @@ class ProfileEditDetails(View):
         f = False
         if a :
             f = True
-        print(f)
+        # print(f)
         form = self.select_form(request.POST, request.FILES, vals, f)
 
         if form.is_valid():
             form.save(commit=False)
 
 
-            # if 'avatar' in form.cleaned_data:
-            #     print(form.cleaned_data)
-                # if form.cleaned_data.get('avatar') is False:
-                #     form.cleaned_data['avatar'] =
-                    # pass
+            if 'avatar' in form.cleaned_data:
+                # print(form.cleaned_data)
+                if form.cleaned_data.get('avatar') is False:
+                    form.cleaned_data['avatar'] = MEDIA_ROOT / 'avatar.png'
+
             form.save()
 
             return redirect('home')

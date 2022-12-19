@@ -48,38 +48,40 @@
     <div class="profilecontainer">
         <div id="profile-left">
             <div>
-                <h1>
-                    Education
-                </h1>
                 {% if academics %}
-                {% for p in academics %}
-                    {% if p is not None %}
-                        {{p.degree}}
-                        <br>
-                    {% endif %}
-                    {{p.year_of_completion}}
-                {% endfor %}
+                    <h1>
+                        Education
+                    </h1>
+
+                    {% for p in academics %}
+                        {% if p is not None %}
+                            {{p.degree}}
+                            <br>
+                        {% endif %}
+                        {{p.year_of_completion}}
+                    {% endfor %}
                 {% endif %}
             </div>
             <div>
+                {% if workexperience %}
+                    <h1>Work Experience</h1>
+                    <div class="work-block">
 
-                <h1>Work Experience</h1>
-                <div class="work-block">
-                    {% if workexperience %}
-                        {% for w in workexperience %}
-                            <u><h3>{{w.organization_name}}</h3></u>
-                            <h4>{{w.designation}}</h4>
-                            <h6>{{w.year_joined}}-{{w.year_left}}</h6>
-                        {% endfor %}
-                    {% endif %}
-                </div>
+                            {% for w in workexperience %}
+                                <u><h3>{{w.organization_name}}</h3></u>
+                                <h4>{{w.designation}}</h4>
+                                <h6>{{w.year_joined}}-{{w.year_left}}</h6>
+                            {% endfor %}
+
+                    </div>
+                {% endif %}
             </div>
         </div>
 
         <div class="profile">
 
                 <img id="profile-avatar" src="{{profile.avatar.url}}" width="120"/>
-
+                <a class="btn" href="{% url 'edit_spc_profile' profile.id %}?r=profile">Edit</a>
 
             <div class="profile-data">
                 <h4 class="profile-data">{{profile.headline}}</h4>
@@ -91,15 +93,17 @@
 
         <div id="profile-right">
             <div>
-                <h1>Projects Worked</h1>
-                {% for m in milestones %}
-                    <a href="{% url 'milestone' m.id %}">
-                        <button>
-                            {{m}}
-                        </button>
-                        <br>
-                    </a>
-                {% endfor %}
+                {% if milestones %}
+                    <h1>Projects Worked</h1>
+                    {% for m in milestones %}
+                        <a href="{% url 'milestone' m.id %}">
+                            <button>
+                                {{m}}
+                            </button>
+                            <br>
+                        </a>
+                    {% endfor %}
+                {% endif %}
             </div>
 
             <div>

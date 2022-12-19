@@ -3,7 +3,16 @@
 {% block content %}
         <div>
                 {% for obj in obj %}
-                <a href="{% url 'edit_spc_profile' obj.id %}?r={{r}}">{{obj}}</a>
+                <a href="{% url 'edit_spc_profile' obj.id %}?r={{r}}">
+                        {% if obj.degree %}
+                                {{obj.degree}}
+                        {% elif obj.title %}
+                                {{obj.title}}
+                        {% elif obj.organization_name %}
+                                {{obj.organization_name}}
+
+                        {% endif %}
+                </a>
                 <br>
                 {% endfor %}
                 <a href="{% url 'add_details' %}?a=add&r={{r}}" class="btn">Add</a>
