@@ -1,0 +1,95 @@
+{% extends 'main.html' %}
+{% block content %}
+    <div >
+        <div class="profile-view-top">
+
+            <div class="prof-name">
+                <h1 >{{profile.user}} </h1>
+                <h4 id="prof-font" style="font-size: 25px;">
+
+                        {{profile.headline}}
+
+                </h4>
+            </div>
+
+            <div class="prof-avatar">
+                <img id="profile-avatar" src="{{profile.avatar.url}}" width="120"/>
+            </div>
+
+        </div>
+
+
+        <div class="int-viewprofile">
+
+            {% if contacts %}
+                <div class="subview">
+                    <!-- <h3 id="prof-font">
+                        Contacts
+                    </h3> -->
+
+
+                </div>
+            {% endif %}
+
+            {% if profile %}
+                <div class="subview">
+                    <h3 id="prof-font">
+                        Profile
+                    </h3>
+                    {{profile.bio}}
+                </div>
+            {% endif %}
+
+            {% if skill %}
+                <div class="subview">
+                    <h3 id="prof-font">
+                        Skills
+                    </h3>
+                        {% for m in skill  %}
+                            <li>
+                                {{m}}
+                            </li>
+                        {% endfor %}
+
+                </div>
+            {% endif %}
+
+            {% if workexperience %}
+                <div class="subview">
+                    <h3 id="prof-font">
+                        Experience
+                    </h3>
+                    {% for m in workexperience %}
+                        <h5>{{m.organization_name}}</h5>
+                        <span>
+                            {{m.year_joined}}-
+                            {% if m.year_left == 435464  %}
+                                Present
+                            {% else %}
+                                {{m.year_left}}
+                            {% endif %}
+                        </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if academics %}
+                <div class="subview">
+                    <h3 id="prof-font">
+                        Education
+                    </h3>
+                    {% for m in academics %}
+                        <span style="font-weight: 700; font-style: normal; color: rgb(70, 74, 78); text-decoration: none;">
+                            {{m.degree}}
+                            <br>
+                        </span>
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+{% endblock %}

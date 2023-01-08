@@ -3,9 +3,26 @@ from resume.settings import MEDIA_ROOT
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic.base import TemplateView
-from .models import Profile, Academics, Certifications, WorkExperiences
-from .forms import AcademicsEditForm, WorkexperienceEditForm, ProfileEditForm, CertificationsEditForm, MilestonesEditForm
+
+from .models import (
+                    Profile,
+                    Academics,
+                    Certifications,
+                    WorkExperiences,
+                    Skill,
+                    Contact
+                    )
+
+from .forms import (
+                    AcademicsEditForm,
+                    WorkexperienceEditForm,
+                    ProfileEditForm,
+                    CertificationsEditForm,
+                    MilestonesEditForm,
+                    SkillEditForm,
+                    ContactEditForm
+
+                    )
 from base.models import Milestones
 # Create your views here.
 
@@ -214,7 +231,30 @@ class ProfileEditDetails(View):
                 projects = Milestones.objects.get(id=id)
                 form = MilestonesEditForm(req_post, req_files ,instance=projects)
                 return form
+            return form
 
+        #Skills Form
+        elif r == 'skills':
+            form = SkillEditForm(req_post, req_files,initial={'user':self.request.user})
+            if id == None and not f:
+                skill = Skill.objects.filter(user = self.request.user)
+                return skill
+            elif id:
+                skill = Skill.objects.get(id=id)
+                form = SkillEditForm(req_post, req_files ,instance=skill)
+                return form
+            return form
+
+        #Contacts Form
+        elif r == 'contacts':
+            form = ContactEditForm(req_post, req_files,initial={'user':self.request.user})
+            if id == None and not f:
+                contacts = Contact.objects.filter(user = self.request.user)
+                return contacts
+            elif id:
+                contacts = Contact.objects.get(id=id)
+                form = ContactEditForm(req_post, req_files , instance=contacts)
+                return form
             return form
 
 
@@ -244,7 +284,7 @@ class ProfileEditDetails(View):
         elif self.request.GET.get('a'):
             """Form rendered after user requests for add"""
             form = self.select_form(f=True)
-            # print('add')
+            print('form')
 
             self.context.update({'form':form})
             return render(request, 'prof_details/profile.html', self.context)
@@ -291,3 +331,58 @@ def deleteProfileDetail(request, pk):
 
     obj.delete()
     return redirect('edit_profile')
+
+def view_profile(request):
+    """Method for showing your resume to other people"""
+    context = {}
+    # Fetching Profile object
+    try:
+        profile = Profile.objects.get(user=request.user)
+        context.update({'profile': profile})
+    except:
+        messages.error(request,'Havent set up a profile yet')
+
+    # Fetching Academics object
+    try:
+        academics = Academics.objects.filter(profile=profile)
+        # print(academics)
+        context.update({'academics':academics})
+    except:
+        pass
+
+    # Fetching Milestone object
+    try:
+        milestones = Milestones.objects.filter(user=request.user)
+        context.update({'milestones':milestones})
+    except:
+        pass
+
+    # Fetching Certification object
+    try:
+        certif = Certifications.objects.filter(user=request.user).values()
+        context.update({'certifications':certif})
+    except:
+        pass
+
+    # Fetching WorkExperience object
+    try:
+        workex = WorkExperiences.objects.filter(user=request.user)
+        context.update({'workexperience':workex})
+    except:
+        pass
+
+    try:
+        skill = Skill.objects.filter(user=request.user)
+        context.update({'skill':skill})
+    except:
+        pass
+
+    try:
+            contacts = Contact.objects.filter(user=request.user)
+            context.update({'contacts':contacts})
+
+    except:
+        pass
+
+    return render(request,'prof_details/view_profile.html', context)
+

@@ -50,14 +50,37 @@ class WorkExperiences(models.Model):
     """Model for work experiences"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     organization_name = models.CharField(max_length=50, null=True, blank=True)
+
     designation = models.CharField(max_length=30, null=True, blank=True)
     year_joined = models.IntegerField(choices=[(r,r) for r in range(1950,datetime.date.today().year)],
                                              default=datetime.date.today().year-10, null=True, blank=True)
-    year_left = models.IntegerField(choices=[(r,r) for r in range(1950,datetime.date.today().year)],
-                                             default=datetime.date.today().year-1, null=True, blank=True)
+    year_left = models.IntegerField(choices=[(r,r) for r in range(1950,datetime.date.today().year)]+[(435464,'Present')],
+                                             default=435464, null=True, blank=True)
 
     # def __str__(self):
     #     if self.organization_name and self.designation:
     #         return self.organization_name + ' ' +  self.designation
     #     else:
     #         return self.user
+
+
+class Skill(models.Model):
+    """Model for skills"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.TextField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
+class Contact(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=13, null=True, blank=True)
+    address = models.TextField(max_length=50, null=True, blank=True)
+    email_adress = models.EmailField()
+
+
+
+
+
+

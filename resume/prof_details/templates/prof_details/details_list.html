@@ -10,12 +10,17 @@
                                 {{obj.title}}
                         {% elif obj.organization_name %}
                                 {{obj.organization_name}}
-
+                        {% elif obj.name %}
+                                {{obj.name}}
+                        {% elif obj.email_adress %}
+                                {{obj.email_adress}}
                         {% endif %}
                 </a>
                 <br>
                 {% endfor %}
-                <a href="{% url 'add_details' %}?a=add&r={{r}}" class="btn">Add</a>
+
+                        <a href="{% url 'add_details' %}?a=add&r={{r}}" class="btn">Add</a>
+
         </div>
 
 {% endblock %}

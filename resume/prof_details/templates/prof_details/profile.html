@@ -32,11 +32,14 @@
 
             <div class="right">
                 <ul>
+
                     <li><a href="?r=profile">Profile</a></li>
                     <li><a href="{% url 'detail'  %}?r=certification&d=details">Certifications</a></li>
                     <li><a href="{% url 'detail'  %}?r=academics&d=details">Academics</a></li>
                     <li><a href="{% url 'detail'  %}?r=experience&d=details">Experience</a></li>
                     <li><a href="{% url 'detail'  %}?r=projects&d=details">Projects</a></li>
+                    <li><a href="{% url 'detail'  %}?r=skills&d=details">Skills</a></li>
+                    <li><a href="{% url 'detail'  %}?r=contacts&d=details">Contacts</a></li>
 
                 </ul>
             </div>
@@ -70,7 +73,13 @@
                             {% for w in workexperience %}
                                 <u><h3>{{w.organization_name}}</h3></u>
                                 <h4>{{w.designation}}</h4>
-                                <h6>{{w.year_joined}}-{{w.year_left}}</h6>
+                                <h6>{{w.year_joined}}-
+                                    {% if w.year_left == 435464  %}
+                                        Present
+                                    {% else %}
+                                        {{w.year_left}}
+                                    {% endif %}
+                                </h6>
                             {% endfor %}
 
                     </div>
@@ -82,6 +91,7 @@
 
                 <img id="profile-avatar" src="{{profile.avatar.url}}" width="120"/>
                 <a class="btn" href="{% url 'edit_spc_profile' profile.id %}?r=profile">Edit</a>
+                <a class="btn" href="{% url 'view_profile'%}">View</a>
 
             <div class="profile-data">
                 <h4 class="profile-data">{{profile.headline}}</h4>

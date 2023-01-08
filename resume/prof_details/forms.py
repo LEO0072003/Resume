@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, WorkExperiences, Academics, Certifications
+from .models import Profile, WorkExperiences, Academics, Certifications, Skill, Contact
 from base.models import Milestones
 from django.forms import HiddenInput
 
@@ -37,5 +37,19 @@ class CertificationsEditForm(forms.ModelForm):
 class MilestonesEditForm(forms.ModelForm):
     class Meta:
         model = Milestones
+        fields = '__all__'
+        widgets  =  {'user': HiddenInput()}
+
+
+class SkillEditForm(forms.ModelForm):
+    class Meta:
+        model = Skill
+        fields = '__all__'
+        widgets  =  {'user': HiddenInput()}
+
+
+class ContactEditForm(forms.ModelForm):
+    class Meta:
+        model = Contact
         fields = '__all__'
         widgets  =  {'user': HiddenInput()}
