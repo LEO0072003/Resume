@@ -1,7 +1,7 @@
 from django.forms import HiddenInput
 from resume.settings import MEDIA_ROOT
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import View
 
 from .models import (
@@ -292,7 +292,7 @@ class ProfileEditDetails(View):
     def post(self, request, *args, **kwargs):
         vals = kwargs.get('pk')
         a = self.request.GET.get('a')
-
+        r = self.request.GET.get('r')
         f = False
         if a :
             f = True
@@ -310,7 +310,8 @@ class ProfileEditDetails(View):
 
             form.save()
 
-            return redirect('home')
+            return redirect(f'/detail_list/?r={r}&d=details')
+
         else:
             print('error: ',form.errors)
 
@@ -332,12 +333,12 @@ def deleteProfileDetail(request, pk):
     obj.delete()
     return redirect('edit_profile')
 
-def view_profile(request):
+def view_profile(request, pk):
     """Method for showing your resume to other people"""
-    context = {}
+    context = {'user_id':pk}
     # Fetching Profile object
     try:
-        profile = Profile.objects.get(user=request.user)
+        profile = Profile.objects.get(id=pk)
         context.update({'profile': profile})
     except:
         messages.error(request,'Havent set up a profile yet')
@@ -352,37 +353,38 @@ def view_profile(request):
 
     # Fetching Milestone object
     try:
-        milestones = Milestones.objects.filter(user=request.user)
+        milestones = Milestones.objects.filter(user=pk)
         context.update({'milestones':milestones})
     except:
         pass
 
-    # Fetching Certification object
+    # Fetching Certification objects
     try:
-        certif = Certifications.objects.filter(user=request.user).values()
+        certif = Certifications.objects.filter(user=pk).values()
         context.update({'certifications':certif})
     except:
         pass
 
-    # Fetching WorkExperience object
+    # Fetching WorkExperience objects
     try:
-        workex = WorkExperiences.objects.filter(user=request.user)
+        workex = WorkExperiences.objects.filter(user=pk).values()
         context.update({'workexperience':workex})
     except:
         pass
 
+    # Fetching Skill objects
     try:
-        skill = Skill.objects.filter(user=request.user)
+        skill = Skill.objects.filter(user=pk).values()
         context.update({'skill':skill})
     except:
         pass
 
     try:
-            contacts = Contact.objects.filter(user=request.user)
+            contacts = Contact.objects.filter(user=pk)[0]
             context.update({'contacts':contacts})
 
     except:
         pass
-
+    print(context.get('user_id'))
     return render(request,'prof_details/view_profile.html', context)
 

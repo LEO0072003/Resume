@@ -12,6 +12,6 @@ urlpatterns = [
     path('profile_edit/<str:pk>/', login_required(views.ProfileEditDetails.as_view(),login_url='login'), name='edit_spc_profile'),
     path('add_details/', login_required(views.ProfileEditDetails.as_view(),login_url='login'), name='add_details'),
     path('delete/<str:pk>/', login_required(views.deleteProfileDetail,login_url='login'), name='delete'),
-    path('view_resume/', views.view_profile, name='view_profile')
+    path('view_resume/<str:pk>/', views.view_profile, name='view_profile')
 
 ]

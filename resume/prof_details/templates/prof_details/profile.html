@@ -48,7 +48,7 @@
     </div>
 
 {% elif page == 'ViewProfile' %}
-    <div class="profilecontainer">
+    <!-- <div class="profilecontainer">
         <div id="profile-left">
             <div>
                 {% if academics %}
@@ -91,7 +91,7 @@
 
                 <img id="profile-avatar" src="{{profile.avatar.url}}" width="120"/>
                 <a class="btn" href="{% url 'edit_spc_profile' profile.id %}?r=profile">Edit</a>
-                <a class="btn" href="{% url 'view_profile'%}">View</a>
+                <a class="btn" href="{% url 'view_profile' request.user.id %}">View</a>
 
             <div class="profile-data">
                 <h4 class="profile-data">{{profile.headline}}</h4>
@@ -127,7 +127,7 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
 
 {% endif %}
 

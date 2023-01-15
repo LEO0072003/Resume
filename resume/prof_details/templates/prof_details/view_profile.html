@@ -21,72 +21,104 @@
 
         <div class="int-viewprofile">
 
-            {% if contacts %}
-                <div class="subview">
-                    <!-- <h3 id="prof-font">
-                        Contacts
-                    </h3> -->
+            <div class="top-view">
+                <div class="view-tabs">
+                    {% if contacts %}
+                        <div class="subview leftv">
+                            <h3 id="prof-font">
+                                Contacts
 
-
-                </div>
-            {% endif %}
-
-            {% if profile %}
-                <div class="subview">
-                    <h3 id="prof-font">
-                        Profile
-                    </h3>
-                    {{profile.bio}}
-                </div>
-            {% endif %}
-
-            {% if skill %}
-                <div class="subview">
-                    <h3 id="prof-font">
-                        Skills
-                    </h3>
-                        {% for m in skill  %}
-                            <li>
-                                {{m}}
-                            </li>
-                        {% endfor %}
-
-                </div>
-            {% endif %}
-
-            {% if workexperience %}
-                <div class="subview">
-                    <h3 id="prof-font">
-                        Experience
-                    </h3>
-                    {% for m in workexperience %}
-                        <h5>{{m.organization_name}}</h5>
-                        <span>
-                            {{m.year_joined}}-
-                            {% if m.year_left == 435464  %}
-                                Present
-                            {% else %}
-                                {{m.year_left}}
-                            {% endif %}
-                        </span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            {% if academics %}
-                <div class="subview">
-                    <h3 id="prof-font">
-                        Education
-                    </h3>
-                    {% for m in academics %}
-                        <span style="font-weight: 700; font-style: normal; color: rgb(70, 74, 78); text-decoration: none;">
-                            {{m.degree}}
+                                {% if user_id == request.user.id %}
+                                    <a href="" style="color: #000000;"><i class="material-icons">edit</i></a>
+                                {% endif %}
+                            </h3>
                             <br>
-                        </span>
+                            <i class="material-icons">phone</i>
+                            {{contacts.phone_number}}
+                            <br><br>
+                            <i class="material-icons">home</i>
+                            {{contacts.address}}
+                            <br><br>
+                            <i class="material-icons">mail</i>
+                            {{contacts.email_adress}}
 
-                    {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
+
+                {% if profile %}
+                    <div style="border-bottom: 3px double #000000; ; "  class="subview rightv">
+                        <h3 id="prof-font">
+                            Profile
+                        </h3>
+                        {{profile.bio}}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="bottom-view">
+                <div>
+                    {% if skill %}
+                        <div style="border-bottom: 3px double #000000; border-top: 3px double #000000;" class="subview leftv">
+                            <h3 id="prof-font">
+                                Skills
+                            </h3>
+                                {% for m in skill  %}
+                                    <li>
+                                        {{m.name}}
+                                    </li>
+                                {% endfor %}
+
+                        </div>
+                    {% endif %}
+
+                    {% if academics %}
+                    <div class="subview leftv">
+                        <h3 id="prof-font">
+                            Education
+                        </h3>
+                        {% for m in academics %}
+                            <span>
+                                {{m.degree}}
+                                <br>
+                            </span>
+
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                </div>
+
+                <div>
+                    {% if workexperience %}
+                        <div class="subview rightv">
+                            <h3 id="prof-font">
+                                Experience
+                            </h3>
+                            {% for m in workexperience %}
+                                <h5>{{m.designation}} at {{m.organization_name}}</h5>
+
+                                <!-- <span>
+                                    {{m.designation}}
+                                    <br>
+                                </span> -->
+
+                                <span>
+                                    {{m.year_joined}}-
+                                    {% if m.year_left == 435464  %}
+                                        Present
+                                    {% else %}
+                                        {{m.year_left}}
+                                    {% endif %}
+                                </span>
+                                <br><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
 
         </div>
     </div>

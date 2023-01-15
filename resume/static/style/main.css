@@ -17,8 +17,6 @@ body{
 }
 #profile-avatar{
     display: block;
-    margin-left: auto;
-    margin-right: auto;
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -236,7 +234,7 @@ body{
 	background-color: #e4e4e4;
 	padding: 10px;
 	height: fit-content;
-	margin-bottom: 60px;
+	margin: 10px 20px 20px 40px;
 
 }
 
@@ -259,19 +257,46 @@ body{
 
 #prof-font{
 	font-family:  'YADXm3pZ1HU 0', _fb_, auto; font-size: 20px; color: rgb(70, 74, 78); line-height: 22px; letter-spacing: 0.1em; --para-spacing:0; text-transform: uppercase; --head-indent:0; --numeric-list-marker:none; list-style-type: none;;
+	padding-bottom: 10px;
 }
 
 .int-viewprofile{
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	margin: 0px  130px;
 
-	display: flex;
-	/* grid-template-rows: 1fr 1fr 1fr; */
-	/* grid-template-columns: 1fr 1fr; */
 
 
+
+}
+
+.top-view{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.bottom-view{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	height: fit-content;
 }
 
 .subview{
-	margin: 10px;
-	padding: 10px;
 	display: block;
+	padding: 30px;
 }
+
+.leftv{
+
+	margin-right: -3px;
+	margin-bottom: -3px;
+	border-right: 3px double #000000;
+
+}
+.rightv{
+	/* padding-right: 200px; */
+	border-left: 3px double #000000;
+	margin-bottom: -3px;
+}
+
+
