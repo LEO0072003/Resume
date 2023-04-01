@@ -38,6 +38,7 @@ class ProfileView(View):
         # Fetching Profile object
         try:
             profile = Profile.objects.get(user=request.user)
+            # print(request.user)
             context.update({'profile': profile})
         except:
             messages.error(request,'Havent set up a profile yet')
@@ -310,7 +311,11 @@ class ProfileEditDetails(View):
 
             form.save()
 
-            return redirect(f'/detail_list/?r={r}&d=details')
+            if r=='profile':
+                return redirect(f'/detail_list/?r={r}')
+
+            else:
+                return redirect(f'/detail_list/?r={r}&d=details')
 
         else:
             print('error: ',form.errors)
@@ -335,7 +340,7 @@ def deleteProfileDetail(request, pk):
 
 def view_profile(request, pk):
     """Method for showing your resume to other people"""
-    context = {'user_id':pk}
+    context = {'user_id':int(pk)}
     # Fetching Profile object
     try:
         profile = Profile.objects.get(id=pk)
@@ -385,6 +390,6 @@ def view_profile(request, pk):
 
     except:
         pass
-    print(context.get('user_id'))
+    # print(type(context.get('user_id')))
     return render(request,'prof_details/view_profile.html', context)
 

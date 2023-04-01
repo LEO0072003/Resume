@@ -4,11 +4,9 @@
         <div class="profile-view-top">
 
             <div class="prof-name">
-                <h1 >{{profile.user}} </h1>
+                <h1>{{profile.user}}</h1>
                 <h4 id="prof-font" style="font-size: 25px;">
-
                         {{profile.headline}}
-
                 </h4>
             </div>
 
@@ -29,7 +27,9 @@
                                 Contacts
 
                                 {% if user_id == request.user.id %}
-                                    <a href="" style="color: #000000;"><i class="material-icons">edit</i></a>
+                                    <a href="{% url 'detail' %}?r=contacts&d=details" style="color: #000000;">
+                                        <i class="material-icons">edit</i>
+                                    </a>
                                 {% endif %}
                             </h3>
                             <br>
@@ -50,6 +50,11 @@
                     <div style="border-bottom: 3px double #000000; ; "  class="subview rightv">
                         <h3 id="prof-font">
                             Profile
+                            {% if user_id == request.user.id %}
+                                    <!-- <a href="{% url 'detail' %}?r=profile&d=details" style="color: #000000;">
+                                        <i class="material-icons">edit</i>
+                                    </a> -->
+                            {% endif %}
                         </h3>
                         {{profile.bio}}
                     </div>
@@ -63,6 +68,11 @@
                         <div style="border-bottom: 3px double #000000; border-top: 3px double #000000;" class="subview leftv">
                             <h3 id="prof-font">
                                 Skills
+                                {% if user_id == request.user.id %}
+                                    <a href="{% url 'detail' %}?r=skills&d=details" style="color: #000000;">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                {% endif %}
                             </h3>
                                 {% for m in skill  %}
                                     <li>
@@ -77,6 +87,11 @@
                     <div class="subview leftv">
                         <h3 id="prof-font">
                             Education
+                            {% if user_id == request.user.id %}
+                                    <a href="{% url 'detail' %}?r=academics&d=details" style="color: #000000;">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                            {% endif %}
                         </h3>
                         {% for m in academics %}
                             <span>
@@ -95,6 +110,11 @@
                         <div class="subview rightv">
                             <h3 id="prof-font">
                                 Experience
+                                {% if user_id == request.user.id %}
+                                    <a href="{% url 'detail' %}?r=certification&d=details" style="color: #000000;">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                {% endif %}
                             </h3>
                             {% for m in workexperience %}
                                 <h5>{{m.designation}} at {{m.organization_name}}</h5>
