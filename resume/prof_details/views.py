@@ -343,7 +343,7 @@ def view_profile(request, pk):
     context = {'user_id':int(pk)}
     # Fetching Profile object
     try:
-        profile = Profile.objects.get(id=pk)
+        profile = Profile.objects.get(user=request.user)
         context.update({'profile': profile})
     except:
         messages.error(request,'Havent set up a profile yet')
