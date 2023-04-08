@@ -1,9 +1,37 @@
 {% extends 'main.html' %}
-
 {% block content %}
-<div>
-        <h1>HIIIIIIIIIIIIIIII</h1>
-</div>
+
+<section class="hero">
+        <h1>Welcome to Resume Showcase</h1>
+        <p>Showcase your resume and get hired</p>
+        <a href="{% url 'edit_profile' %}?r=profile" class="cta">Upload Resume</a>
+</section>
+
+<section class="features">
+        <div style="display: grid; grid-template-columns: 3fr 1fr;">
+                <div class="feature" style="padding-top: 117px;">
+                        <img class="home_photos" src="/media/project_images/Hire.jpg" alt=" Hiring">
+                        <h2>Find your dream job</h2>
+                        <p>Connect with potential employers and stand out from the crowd</p>
+                </div>
+
+                <div class="feature">
+                        <img src="/media/project_images/Businessman.jpg" alt="Businessman">
+                        <h2>Get noticed by recruiters</h2>
+                        <p>Showcase your skills and experience to recruiters looking for talent like yours</p>
+                </div>
+        </div>
+
+        <div class="feature">
+                <img src="/media/project_images/Communication.jpg" alt="Communication">
+                <h2>Network with other professionals</h2>
+                <p>Connect with other professionals in your industry and expand your network</p>
+        </div>
+</section>
+
+<footer>
+        <p>Copyright © 2023
+        </p>
+</footer>
 
 {% endblock content %}
-
