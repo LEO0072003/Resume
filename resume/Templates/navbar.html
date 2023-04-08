@@ -46,28 +46,28 @@
 <nav id='menu'>
     <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
     <ul>
-      <li><a href='{% url "home" %}'>Home</a></li>
-      {% if request.user.is_authenticated %}
+        <li><a href='{% url "home" %}'>Home</a></li>
+        {% if request.user.is_authenticated %}
         <li><a class='dropdown-arrow' href="">Profile</a>
             <ul class='sub-menus'>
-            <li><a href="{% url 'view_profile' request.user.id %}">View your profile</a></li>
-            <li><a href="{% url 'edit_profile' %}?r=profile">Edit your profile</a></li>
-        </ul>
-      </li>
-      {% endif %}
+                <li><a href="{% url 'view_profile' request.user.id %}">View your profile</a></li>
+                <li><a href="{% url 'edit_profile' %}?r=profile">Edit your profile</a></li>
+            </ul>
+        </li>
+        {% endif %}
 
 
-      <li><a href="">Contact Us</a></li>
+        <li><a href="">Contact Us</a></li>
 
-    <div class="login-logout" >
-        {% if request.user.is_authenticated %}
+        <div class="login-logout">
+            {% if request.user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
 
-        {% else %}
+            {% else %}
             <li><a href="{% url 'login' %}">Login</a></li>
 
-        {% endif %}
-    </div>
+            {% endif %}
+        </div>
     </ul>
 
-  </nav>
+</nav>

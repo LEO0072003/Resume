@@ -1,147 +1,147 @@
 {% extends 'main.html' %}
 {% block content %}
-    <div >
-        <div class="profile-view-top">
+<div>
+    <div class="profile-view-top">
 
-            <div class="prof-name">
-                <h1>{{profile.user}}</h1>
-                <h4 id="prof-font" style="font-size: 25px;">
-                        {{profile.headline}}
-                </h4>
+        <div class="prof-name">
+            <h1>{{profile.user}}</h1>
+            <h4 id="prof-font" style="font-size: 25px;">
+                {{profile.headline}}
+            </h4>
+        </div>
+
+        <div class="prof-avatar">
+            <img id="profile-avatar" src="{{profile.avatar.url}}" width="120" />
+        </div>
+
+    </div>
+
+
+    <div class="int-viewprofile">
+
+        <div class="top-view">
+            <div class="view-tabs">
+                {% if contacts %}
+                <div class="subview leftv">
+                    <h3 id="prof-font">
+                        Contacts
+
+                        {% if user_id == request.user.id %}
+                        <a href="{% url 'detail' %}?r=contacts&d=details" style="color: #000000;">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        {% endif %}
+                    </h3>
+                    <br>
+                    <i class="material-icons">phone</i>
+                    {{contacts.phone_number}}
+                    <br><br>
+                    <i class="material-icons">home</i>
+                    {{contacts.address}}
+                    <br><br>
+                    <i class="material-icons">mail</i>
+                    {{contacts.email_adress}}
+
+                </div>
+                {% endif %}
             </div>
 
-            <div class="prof-avatar">
-                <img id="profile-avatar" src="{{profile.avatar.url}}" width="120"/>
+            {% if profile %}
+            <div style="border-bottom: 3px double #000000; ; " class="subview rightv">
+                <h3 id="prof-font">
+                    Profile
+                    {% if user_id == request.user.id %}
+                    <!-- <a href="{% url 'detail' %}?r=profile&d=details" style="color: #000000;">
+                                        <i class="material-icons">edit</i>
+                                    </a> -->
+                    {% endif %}
+                </h3>
+                {{profile.bio}}
             </div>
-
+            {% endif %}
         </div>
 
 
-        <div class="int-viewprofile">
+        <div class="bottom-view">
+            <div>
+                {% if skill %}
+                <div style="border-bottom: 3px double #000000; border-top: 3px double #000000;" class="subview leftv">
+                    <h3 id="prof-font">
+                        Skills
+                        {% if user_id == request.user.id %}
+                        <a href="{% url 'detail' %}?r=skills&d=details" style="color: #000000;">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        {% endif %}
+                    </h3>
+                    {% for m in skill %}
+                    <li>
+                        {{m.name}}
+                    </li>
+                    {% endfor %}
 
-            <div class="top-view">
-                <div class="view-tabs">
-                    {% if contacts %}
-                        <div class="subview leftv">
-                            <h3 id="prof-font">
-                                Contacts
-
-                                {% if user_id == request.user.id %}
-                                    <a href="{% url 'detail' %}?r=contacts&d=details" style="color: #000000;">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                                {% endif %}
-                            </h3>
-                            <br>
-                            <i class="material-icons">phone</i>
-                            {{contacts.phone_number}}
-                            <br><br>
-                            <i class="material-icons">home</i>
-                            {{contacts.address}}
-                            <br><br>
-                            <i class="material-icons">mail</i>
-                            {{contacts.email_adress}}
-
-                        </div>
-                    {% endif %}
                 </div>
-
-                {% if profile %}
-                    <div style="border-bottom: 3px double #000000; ; "  class="subview rightv">
-                        <h3 id="prof-font">
-                            Profile
-                            {% if user_id == request.user.id %}
-                                    <!-- <a href="{% url 'detail' %}?r=profile&d=details" style="color: #000000;">
-                                        <i class="material-icons">edit</i>
-                                    </a> -->
-                            {% endif %}
-                        </h3>
-                        {{profile.bio}}
-                    </div>
                 {% endif %}
+
+                {% if academics %}
+                <div class="subview leftv">
+                    <h3 id="prof-font">
+                        Education
+                        {% if user_id == request.user.id %}
+                        <a href="{% url 'detail' %}?r=academics&d=details" style="color: #000000;">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        {% endif %}
+                    </h3>
+                    {% for m in academics %}
+                    <span>
+                        {{m.degree}}
+                        <br>
+                    </span>
+
+                    {% endfor %}
+                </div>
+                {% endif %}
+
             </div>
 
+            <div>
+                {% if workexperience %}
+                <div class="subview rightv">
+                    <h3 id="prof-font">
+                        Experience
+                        {% if user_id == request.user.id %}
+                        <a href="{% url 'detail' %}?r=experience&d=details" style="color: #000000;">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        {% endif %}
+                    </h3>
+                    {% for m in workexperience %}
+                    <h5>{{m.designation}} at {{m.organization_name}}</h5>
 
-            <div class="bottom-view">
-                <div>
-                    {% if skill %}
-                        <div style="border-bottom: 3px double #000000; border-top: 3px double #000000;" class="subview leftv">
-                            <h3 id="prof-font">
-                                Skills
-                                {% if user_id == request.user.id %}
-                                    <a href="{% url 'detail' %}?r=skills&d=details" style="color: #000000;">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                                {% endif %}
-                            </h3>
-                                {% for m in skill  %}
-                                    <li>
-                                        {{m.name}}
-                                    </li>
-                                {% endfor %}
-
-                        </div>
-                    {% endif %}
-
-                    {% if academics %}
-                    <div class="subview leftv">
-                        <h3 id="prof-font">
-                            Education
-                            {% if user_id == request.user.id %}
-                                    <a href="{% url 'detail' %}?r=academics&d=details" style="color: #000000;">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                            {% endif %}
-                        </h3>
-                        {% for m in academics %}
-                            <span>
-                                {{m.degree}}
-                                <br>
-                            </span>
-
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                </div>
-
-                <div>
-                    {% if workexperience %}
-                        <div class="subview rightv">
-                            <h3 id="prof-font">
-                                Experience
-                                {% if user_id == request.user.id %}
-                                    <a href="{% url 'detail' %}?r=certification&d=details" style="color: #000000;">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                                {% endif %}
-                            </h3>
-                            {% for m in workexperience %}
-                                <h5>{{m.designation}} at {{m.organization_name}}</h5>
-
-                                <!-- <span>
+                    <!-- <span>
                                     {{m.designation}}
                                     <br>
                                 </span> -->
 
-                                <span>
-                                    {{m.year_joined}}-
-                                    {% if m.year_left == 435464  %}
-                                        Present
-                                    {% else %}
-                                        {{m.year_left}}
-                                    {% endif %}
-                                </span>
-                                <br><br>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
+                    <span>
+                        {{m.year_joined}}-
+                        {% if m.year_left == 435464 %}
+                        Present
+                        {% else %}
+                        {{m.year_left}}
+                        {% endif %}
+                    </span>
+                    <br><br>
+                    {% endfor %}
                 </div>
-
+                {% endif %}
             </div>
 
         </div>
+
     </div>
+</div>
 
 
 {% endblock %}
